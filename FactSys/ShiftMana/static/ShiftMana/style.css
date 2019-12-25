@@ -1,0 +1,23 @@
+body {
+    background: url("images/factory_big.jpg") no-repeat left top;
+    background-size: auto;
+}
+
+.container {
+  height: 200px;
+  position: relative;
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.center_text {
+    text-align: center;
+    color: #F9D695;
+}

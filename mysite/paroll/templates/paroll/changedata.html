@@ -1,0 +1,39 @@
+<h1>change data</h1>
+<div>
+
+  {% for i in accounts %}
+    <form action="{% url 'change_data' %}" method="post">
+    {{i.identity}}
+    <input type="hidden" name='toke' value= '{{i.identity}}'>
+    <h2>bank account</h2>
+    {{i.bank_account}}
+    <br />
+    <h2>new bank account</h2>
+    <input type='text' name='bank'>
+    <br />
+    <h2>email</h2>
+    {{i.email}}
+    <br />
+    <h2>new email</h2>
+    <input type='email' name="mail" >
+    <br />
+    <h2>address</h2>
+    {{i.address}}
+    <br />
+    <h2>new address</h2>
+    <input type='text' name='address'>
+    <br />
+    {% csrf_token %}
+    <input type='submit' value='done'>
+    <br />
+    </form>
+  {% endfor %}
+  </form>
+</div>
+
+<div>
+  <form action = "{% url 'main' %}" method = get>
+    {% csrf_token %}
+    <input type='submit' value='back'>
+  </form>
+</div>

@@ -1,0 +1,46 @@
+{% load bootstrap4 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% bootstrap_messages %}
+
+<h1>Approve Leaving</h1> 
+
+<form action='{% url "main" %}' method='get'>
+    <input type='submit' value="Back" class='btn btn-primary'>
+</form>
+
+<br />
+
+<div>
+<form action='{% url "transfer" "approve" %}' method='post'>
+{% csrf_token %}
+
+{% for account in accounts %}
+{% with forloop.counter as o_counter %}
+{% if account.applicationstate_set.all %}
+{{ account.identity }} {{ account.account_type }} <br />
+<div class="form-group col-md-4">
+    {% for ap in account.applicationstate_set.all %}
+    {% if ap.approved == True %}
+    {{ ap.date }}  {{ ap.state }} <br />
+    Approved <br />
+    {% endif %}
+    {% if ap.approved == False %}
+    {{ ap.date }}  {{ ap.state }} <br />
+    <select id="approve" name="approve{{ o_counter }}_{{ forloop.counter }}" class="form-control">
+        <option selected value='none'>None</option>
+        
+        <option value='approve'>Approve</option>
+    </select> <br />
+    {% endif %}
+    {% endfor %}
+</div> <br/>
+    {% endif %}
+{% endwith %}
+{% endfor %}
+<input type='submit' value='Submit' class='btn btn-primary'>
+</form>
+    
+</div>

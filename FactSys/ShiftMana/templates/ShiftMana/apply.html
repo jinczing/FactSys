@@ -1,0 +1,30 @@
+{% load bootstrap4 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% bootstrap_messages %}
+
+<h1>Apply Leaving</h1>
+<form action='{% url "main" %}' method='get'>
+    <input type='submit' value="Back" class='btn btn-primary'>
+</form>
+<br />
+<div>
+<form action='{% url "transfer" "apply_leaving" %}' method='post'>
+    {% csrf_token %}
+    <label for='date'>Date</label>
+    <input type='date' id='date' name='date' class="form-control"> <br />
+    <label for="type">Leave Type</label>
+    <select id="type" name="type" class="form-control">
+        <option value='sick_leave'>Sick Leave</option>
+        
+        <option value='leave'>Leave</option>
+        
+        <option value='compensatory_time_off' >Compensatory Time Off</option>
+        
+    </select>
+    <input type='submit' value='Apply' class='btn btn-primary'>
+</form>
+</div>
+

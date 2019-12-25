@@ -1,0 +1,26 @@
+{% load bootstrap4 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% bootstrap_messages %}
+
+<h1>Schedule</h1>
+<form action='{% url "main" %}' method='get'>
+    <input type='submit' value="Back" class='btn btn-primary'>
+</form>
+<br />
+<div>
+    {% for date in dates %}
+        {% with forloop.counter as o_counter %}
+        <a class="btn btn-primary" data-toggle="collapse" href="#col{{ o_counter}}" role="button" aria-expanded="false" aria-controls="{{ o_counter }}">{{ date.date|date:"D d M Y" }}</a> <br/>
+        <div class="collapse" id="col{{ o_counter }}">
+            {% for shift in date.schedulestate_set.all %}
+            {{ shift.identity }} {{ shift.work_state }} {{ shift.work_shift }} <br/>
+            {% endfor %}
+        </div>
+        
+        {{ account.identity }} 
+        {% endwith %}
+    {% endfor %}
+</div>

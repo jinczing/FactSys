@@ -1,0 +1,30 @@
+<div>
+  <h1>Hello! {{identity}}</h1>
+  <form action = '{% url "show_paycheck" %}' method = get>
+    {% csrf_token %}
+    <input type='submit' value='show paycheck'>
+  </form>
+</div>
+
+{% if level != 1 %}
+<div>
+  <form action = '{% url "input_data" %}' method = get>
+    {% csrf_token %}
+    <input type='submit' value='change data'>
+  </form>
+</div>
+{% endif %}
+
+<div>
+  <form action = '{% url "approvement" %}' method = get>
+    {% csrf_token %}
+    <input type='submit' value='approve paycheck'>
+  </form>
+</div>
+
+<div>
+  <form action = '{% url "export" %}' method = get>
+    {% csrf_token %}
+    <input type='submit' value='export'>
+  </form>
+</div>

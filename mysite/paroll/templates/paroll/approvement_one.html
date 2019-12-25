@@ -1,0 +1,20 @@
+<h1>Approvement</h1>
+<div>
+  {% for i in accounts %}
+    {% if i.approved == 0 %}
+      {{i.identity}}
+      <br />
+      <form action = '{% url "check_one" %}' method = post>
+        {% csrf_token %}
+        <input type="hidden" name='toke' value= '{{i.identity}}'>
+        <input type='submit' value='approve'>
+      </form>
+    {% endif %}
+  {% endfor %}
+</div>
+<div>
+  <form action = "{% url 'main' %}" method = get>
+    {% csrf_token %}
+    <input type='submit' value='back'>
+  </form>
+</div>

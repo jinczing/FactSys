@@ -1,0 +1,12 @@
+{% load bootstrap4 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% bootstrap_messages %}
+
+<h1>{{ message }}</h1>
+<form action='{% url "login" %}' method='post'>
+    {% csrf_token %}
+    <input type='submit' Value='Login' class='btn btn-primary'>
+</form>

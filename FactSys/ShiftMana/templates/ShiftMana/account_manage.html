@@ -1,0 +1,66 @@
+{% load bootstrap4 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% bootstrap_messages %}
+<h1>Add Account</h1>
+<form action='{% url "main" %}' method='get'>
+    <input type='submit' value="Back" class='btn btn-primary'>
+</form>
+<br />
+<form action="{% url 'transfer' 'add_account' %}" method="post">
+{% csrf_token %}
+<div class="form-group col-md-4">
+    
+    <label for='identity'>ID</label>
+    <input type='text' id='identity' name='identity' class='form-control'>
+    
+    <label for='type'>Account Type</label>
+    <select id='type' name='type' class='form-control'>
+        <option selected value='employee'>Employee</option>
+        <option value='foreman'>Foreman</option>
+        
+        {% if auth_level == 3 %}
+        <option value='director'>Director</option>
+        {% endif %}
+        
+    </select> <br/>
+    <input type='submit' value='Add Account' class='btn btn-primary'>
+</div>
+</form>
+
+<br/>
+
+<h1>Accounts List</h1>
+<form action="{% url 'transfer' 'account_manage' %}" method="post">
+<div class="form-group col-md-4">
+{% csrf_token %}
+{% for account in accounts %}
+{{ account.identity }} {{ account.account_type }}
+<div class="form-group col-md-4">
+    <label for="auth">Authority Level</label>
+    <select id="auth" name="auth{{ forloop.counter }}" class="form-control">
+        <option {% if account.account_type == 'employee' %} selected {% endif %} value='employee'>Employee</option>
+        
+        <option {% if account.account_type == 'foreman' %} selected {% endif %} value='foreman'>Foreman</option>
+        
+        <option {% if account.account_type == 'director' %} selected {% endif %} value='director'>Director</option>
+        
+    </select>
+    
+    <label for="delete">Delete</label>
+    <select id="delete" name="del{{ forloop.counter }}" class="form-control">
+        <option selected value='false'>False</option>
+        
+        <option value='true'>True</option>
+        
+    </select>
+</div> <br/>
+{% endfor %}
+<input type=submit value="Save Change" class="btn btn-primary">
+</div>
+</form>
+
+
+

@@ -1,0 +1,48 @@
+{% load bootstrap4 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% bootstrap_messages %}
+
+<div>
+    <h1>Hello! {{ identity }}</h1>
+    <form action='{% url "login" %}' method=get>
+        {% csrf_token %}
+        <input type='submit' value='Logout' class='btn btn-primary'>
+    </form>
+</div>
+
+<div>
+    <form action='{% url "schedule" %}' method=post>
+        {% csrf_token %}
+        <input type='submit' value='View Schedule' class='btn btn-primary'>
+    </form>
+</div>
+
+{% if auth_level != 1 %}
+<div>
+    <form action='{% url "account_manage" %}' method=post>
+        {% csrf_token %}
+        <input type='submit' value='Manage Account' class='btn btn-primary'>
+    </form>
+</div>
+{% endif %}
+
+<div>
+    <form action='{% url "apply" %}' method=post>
+        {% csrf_token %}
+        <input type='submit' value='Apply Leave' class='btn btn-primary'>
+    </form>
+</div>
+
+{% if auth_level != 1 %}
+<div>
+    <form action='{% url "approve" %}' method=post>
+        {% csrf_token %}
+        <input type='submit' value='Approve Leave' class='btn btn-primary'>
+    </form>
+</div>
+{% endif %}
+
+

@@ -1,0 +1,21 @@
+<h1>Paycheck</h1>
+<div>
+  {% for i in temp %}
+    <h2>ID</h2>
+    {{i.identity}}
+    <h2>work hour</h2>
+    {{i.work_hour}}
+    <h2>deduction</h2>
+    {{i.deduction}}
+    <h2>net salary</h2>
+    {{i.salary}}
+    <br />
+  {% endfor %}
+</div>
+<br />
+<div>
+  <form action = '{% url "main" %}' method = get>
+    {% csrf_token %}
+    <input type='submit' value='back'>
+  </form>
+</div>
