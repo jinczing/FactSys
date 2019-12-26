@@ -1,0 +1,19 @@
+{% load static %}
+
+<link rel='stylesheet' type="text/css" href="{% static 'paroll/style.css' %}">
+
+<body>
+    <h1 class='center_text'>Payroll</h1>
+    <div class='center'>
+        <h2>Log In</h2>
+        <form action="{% url 'transfer' 'login' %}" method="post">
+            {% csrf_token %}
+            <label class="green">ID: </label>
+            <input type="text" name="identity">
+            <br/>
+            <label>Password: </label>
+            <input type="password" name="password">
+            <input type="submit">
+        </form>
+    </div>
+</body>

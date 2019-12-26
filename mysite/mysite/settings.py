@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 from datetime import timedelta
+from celery.schedules import crontab
+
 
 import os, sys
 sys.path.append(os.path.abspath(os.path.join(os.path.join('../'), 'FactSys')))
@@ -30,25 +32,29 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
+# CELERY STUFF
 BROKER_URL = 'redis://localhost:6379/0'
+BROKER_HEARTBEAT = 10
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_RESULT_SERIALIZER = 'json'
+CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Taipei'
-CELERYBEAT_SCHEDULE = {
-        'test': {
-                'task': 'paroll.tasks.test',
-                'schedule': timedelta(seconds=10),
-                }
-        }
+CELERY_BEAT_SCHEDULE = {
+    'task_test': {
+        'task': 'task_test',
+        'schedule': crontab(),
+        
+    }
+}
+
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django_celery_beat.models.IntervalSchedule',
-    'django_celery_beat.models.PeriodicTask',
+    'bootstrap4',
     'paroll.apps.ParollConfig',
     'ShiftMana.apps.ShiftmanaConfig',
     'django.contrib.admin',

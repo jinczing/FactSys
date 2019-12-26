@@ -1,11 +1,30 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect,FileResponse
+from django.urls import reverse
 from .models import Account,paycheck
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 import io
 
-token ='0000'
+token =''
+
+def login(request):
+    global token
+    token = ''
+    return render(request, 'paroll/login.html')
+    
+def transfer(request, trans_type):
+    global token
+    if trans_type == 'login':
+        try:
+            account = Account.objects.get(identity=request.POST['identity'])
+        except (KeyError, Account.DoesNotExist):
+            return render(request, 'paroll/error.html', {'message':'ID or password is wrong!', 'type':0})
+        else:
+            if account.password != request.POST['password']:
+                return render(request, 'paroll/error.html', {'message':'ID or password is wrong!', 'type':0})
+            token = account.identity
+            return HttpResponseRedirect(reverse('main'))
 
 def main(request):
     level = Account.objects.get(identity = token).account_type
@@ -15,10 +34,8 @@ def main(request):
         level = 2
     else:
         level = 3
-    return render(request,"paroll/main.html",{'token':token,'level':level})
+    return render(request,"paroll/main.html",{'identity':token,'level':level})
 
-def login(request):
-    pass
 
 def input_data(request):
     account = Account.objects.all()
@@ -26,10 +43,10 @@ def input_data(request):
                         #3 space to input email,bank accout and address
 def show_paycheck(request):
     level = Account.objects.get(identity = token).account_type
-
+    alls = []
     if level == 'employee':
         account = Account.objects.get(identity = token)
-        temp = account.paycheck_set.all()
+        alls = account.paycheck_set.all()
     else:
         alls = paycheck.objects.all()
     return render(request,"paroll/showpaycheck.html",{'temp':alls})

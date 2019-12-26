@@ -4,6 +4,8 @@ from . import views
 
 urlpatterns = [
     path('main/', views.main, name='main'),
+    path('<str:trans_type>/transfer/', views.transfer, name='transfer'),
+    path('login/', views.login, name='login'),
     path('showpaycheck/', views.show_paycheck, name='show_paycheck'),
     path('inputdata/', views.input_data, name='input_data'),
     path('approvement/', views.approvement, name='approvement'),

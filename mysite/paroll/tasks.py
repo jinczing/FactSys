@@ -1,10 +1,13 @@
-from __future__ import absolute_import, unicode_literals
+import time
 from .models import Account
-from celery import task
+
+def update():
+    a = Account(identity=str(time.ctime()),
+    account_type='employee',bank_account='123',address='123')
+    a.save()
     
-@task
-def test():
-    a = Account(account_type='employee', bank_account='123'
-                , address='123', email='jj@jj.com')
-    a.using('defaul').save()
-    
+
+while True:
+    update()
+    time.sleep(10)
+

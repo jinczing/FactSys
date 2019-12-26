@@ -1,0 +1,23 @@
+
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% bootstrap_messages %}
+
+
+<body>
+    <h1 class='center_text'>Change Password</h1>
+    <form action="{% url 'transfer' 'change' %}" method="post">
+        {% csrf_token %}
+        <label for='o_pass'>Old Password</label>
+        <input type="password" id='o_pass' name='o_password'> <br />
+        
+        <label for='f_pass'>New Password</label>
+        <input type='password' id='f_pass' name='f_password'> <br />
+            
+        <label for='s_pass'>New Password Again</label>
+        <input type='password' id='s_pass' name='s_password'> <br />
+            
+        <input type='submit' value='Change' class='btn btn-primary'>
+    </form>
+</body>

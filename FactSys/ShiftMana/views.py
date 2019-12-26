@@ -57,6 +57,13 @@ def approve(request):
                 accounts.append(account)
                 
         return render(request, 'ShiftMana/approve.html', {'accounts':accounts})
+        
+def change(request):
+    global token
+    if token == '':
+        return render(request, 'ShiftMana/error.html', {'message':'please login!'})
+    else:
+        return render(request, 'ShiftMana/change.html')
 
 
 def transfer(request, trans_type):
@@ -168,6 +175,29 @@ def transfer(request, trans_type):
                     j += 1
                 i += 1
             return HttpResponseRedirect(reverse('main'))
+            
+    if trans_type == 'change':
+        if token == '':
+            return render(request, 'ShiftMana/error.html', {'message':'please login!'})
+        else:
+            account = Account.objects.get(identity=token)
+            if account.password != request.POST['o_password']:
+                return render(request, 'ShiftMana/error.html',
+                {
+                    'message':"wrong old password!",
+                    'type':1
+                              })
+            elif request.POST['f_password'] != request.POST['s_password']:
+                return render(request, 'ShiftMana/error.html',
+                {
+                    'message':"new passwords doesn't match!",
+                    'type':1
+                              })
+            else:
+                account.password = request.POST['s_password']
+                account.save()
+                return HttpResponseRedirect(reverse('main'))
+                
                     
                 
             

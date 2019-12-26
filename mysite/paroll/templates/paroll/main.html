@@ -1,8 +1,13 @@
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% bootstrap_messages %}
+
 <div>
   <h1>Hello! {{identity}}</h1>
   <form action = '{% url "show_paycheck" %}' method = get>
     {% csrf_token %}
-    <input type='submit' value='show paycheck'>
+    <input type='submit' value='show paycheck' class='btn btn-primary'>
   </form>
 </div>
 
@@ -10,7 +15,7 @@
 <div>
   <form action = '{% url "input_data" %}' method = get>
     {% csrf_token %}
-    <input type='submit' value='change data'>
+    <input type='submit' value='change data' class='btn btn-primary'>
   </form>
 </div>
 {% endif %}
@@ -18,13 +23,13 @@
 <div>
   <form action = '{% url "approvement" %}' method = get>
     {% csrf_token %}
-    <input type='submit' value='approve paycheck'>
+    <input type='submit' value='approve paycheck' class='btn btn-primary'>
   </form>
 </div>
 
 <div>
   <form action = '{% url "export" %}' method = get>
     {% csrf_token %}
-    <input type='submit' value='export'>
+    <input type='submit' value='export' class='btn btn-primary'>
   </form>
 </div>

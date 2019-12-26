@@ -6,7 +6,16 @@
 {% bootstrap_messages %}
 
 <h1>{{ message }}</h1>
+{% if type != 1 %}
 <form action='{% url "login" %}' method='post'>
     {% csrf_token %}
     <input type='submit' Value='Login' class='btn btn-primary'>
 </form>
+{% endif %}
+
+{% if type == 1 %}
+<form action='{% url "main" %}' method='post'>
+    {% csrf_token %}
+    <input type='submit' Value='Back' class='btn btn-primary'>
+</form>
+{% endif %}

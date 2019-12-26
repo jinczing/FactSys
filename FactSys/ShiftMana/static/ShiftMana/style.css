@@ -1,6 +1,6 @@
 body {
-    background: url("images/factory_big.jpg") no-repeat left top;
-    background-size: auto;
+    background: url("images/factory-2.jpg") no-repeat left top;
+    background-size: cover;
 }
 
 .container {
